@@ -63,7 +63,7 @@ button.link { background: none; border: 0; padding: 0; cursor: pointer; color: v
 .btn.main { background: var(--acorn); color: var(--ink); border-color: #000; font: 15px var(--f-disp); }
 .hint { color: var(--faint); }
 .xp { display: grid; gap: 4px; border-top: 2px dashed var(--line); padding-top: 10px; justify-items: start; }
-.xp small { color: var(--dim); } .xp b { font: 15px var(--f-disp); font-weight: normal; color: var(--acorn); } .xp span { color: var(--dim); }
+.xp small { color: var(--dim); } .xp b { font: 15px var(--f-disp); font-weight: normal; color: var(--acorn); margin-top: 6px; } .xp span { color: var(--dim); }
 .xp .btn { margin-top: 4px; background: var(--leaf); color: var(--ink); border-color: #000; }
 /* tabs */
 nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: #120e0c; border-top: 2px solid var(--line); display: flex; justify-content: center; padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
@@ -269,7 +269,7 @@ const NEWS = [
   ['화성 {I} 선물 첫 인도분, 7년 뒤 도착 예정', '은하 {I} 지수 7.0으로 마감', '웜홀 결제 오류… "어제 낸 돈 내일 환불"'],
 ];
 const PTAP = 4, ACORNS = 7;
-const GAME_URL = 'https://baramutzero-netizen.github.io/josammosa/', SOGWI_URL = 'https://baramutzero-netizen.github.io/moktak/';
+const GAME_URL = 'https://baramutzero-netizen.github.io/josammosa/', SOGWI_URL = 'https://baramutzero-netizen.github.io/moktak/', SKY_URL = 'https://baramutzero-netizen.github.io/skyspit/';
 
 // build node list: venue trunk + four chains per venue, then the ending
 const NODES = [], NODE = {};
@@ -844,7 +844,7 @@ function showResult() {
     <img alt="결산 결과 그림" src="${url}"><div class="hint">그림을 길게 누르면 휴대폰에 저장할 수 있습니다.</div>
     <div class="row"><a class="btn" download="josammosa.png" href="${url}">그림 저장</a><button class="btn" type="button" id="shareBtn">공유하기</button><button class="btn" type="button" id="copyBtn">자랑 문구 복사</button></div>
     <button type="button" class="btn main" id="again">${T('다시 하기 (총량은 같습니다)')}</button>
-    <div class="xp"><small>다른 게임도 해보기</small><b>소 귀에 경 읽기 (牛耳讀經)</b><span>목탁을 치면 경이 소의 한쪽 귀로 들어가 반대쪽 귀로 빠져나오고, 그때마다 카르마가 쌓이는 인크리멘탈 게임입니다.</span><a class="btn" href="${SOGWI_URL}" target="_blank" rel="noopener">소 귀에 경 읽기 하러 가기</a></div></section>`;
+    <div class="xp"><small>다른 게임도 해보기</small><b>소 귀에 경 읽기 (牛耳讀經)</b><span>목탁을 치면 경이 소의 한쪽 귀로 들어가 반대쪽 귀로 빠져나오고, 그때마다 카르마가 쌓이는 인크리멘탈 게임입니다.</span><a class="btn" href="${SOGWI_URL}" target="_blank" rel="noopener">소 귀에 경 읽기 하러 가기</a><b>앙천이타 (仰天而唾)</b><span>누워서 위로 뱉은 말은 결국 전부 내 얼굴로 돌아오는 풍자 인크리멘탈 게임입니다.</span><a class="btn" href="${SKY_URL}" target="_blank" rel="noopener">앙천이타 하러 가기</a></div></section>`;
   $('copyBtn').addEventListener('click', () => { const done = () => { $('copyBtn').textContent = '복사했습니다'; }; try { navigator.clipboard.writeText(brag).then(done, () => { $('copyBtn').textContent = brag; }); } catch (e) { $('copyBtn').textContent = brag; } });
   $('shareBtn').addEventListener('click', async () => { try { const blob = await (await fetch(url)).blob(), f = new File([blob], 'josammosa.png', { type: 'image/png' }); if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], text: brag }); else if (navigator.share) await navigator.share({ text: brag }); else $('shareBtn').textContent = '이 브라우저는 공유를 지원하지 않습니다'; } catch (e) {} });
   $('again').addEventListener('click', () => { const it = S.item; S = fresh(it); D = derived(); resetScene(); save(); $('resultBox').innerHTML = ''; renderAll(); });
